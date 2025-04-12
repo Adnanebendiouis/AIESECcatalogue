@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Catalogue</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .card {
+            width: 250px;
+            margin: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card h3 {
+            text-align: center;
+            font-size: 18px;
+            color: #007BFF;
+        }
+
+        /* Full screen modal */
+        #fullscreenModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #fullscreenModal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        #closeModal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="imageCatalogue">
+        <!-- Dynamic images will be inserted here -->
+    </div>
+
+    <!-- Fullscreen Modal -->
+    <div id="fullscreenModal">
+        <button id="closeModal" onclick="closeFullScreen()">X</button>
+        <img id="fullscreenImage" src="" alt="Full Screen Image">
+    </div>
+
+    <script>
+        // Dynamically generate image cards for image1 to image19
+        const catalogueContainer = document.getElementById("imageCatalogue");
+        
+        for (let i = 1; i <= 19; i++) {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.setAttribute("onclick", `openFullScreen('photos/image${i}.jpg')`);
+            
+            const img = document.createElement("img");
+            img.src = `photos/image${i}.jpg`;
+            img.alt = `Image ${i}`;
+
+            const title = document.createElement("h3");
+            title.textContent = `Image ${i}`;
+            
+            card.appendChild(img);
+            card.appendChild(title);
+            catalogueContainer.appendChild(card);
+        }
+
+        function openFullScreen(imageSrc) {
+            // Show the modal and display the clicked image
+            document.getElementById("fullscreenImage").src = imageSrc;
+            document.getElementById("fullscreenModal").style.display = "flex";
+        }
+
+        function closeFullScreen() {
+            // Hide the modal when clicked
+            document.getElementById("fullscreenModal").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
